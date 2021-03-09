@@ -1,17 +1,29 @@
 package se.lexicon.g34.bl.recipedatabase.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
 
+@Entity //(name="Instructions")
 public class RecipeInstruction {
-    String UUID;
-    String Instructions;
+   @Id
+   @GeneratedValue(generator ="UUID")
+   @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
+   @Column(name ="UUID", updatable = false, nullable = false)
+    private String instructionsId;
+//    @Column(name = "Instruction", nullable = false)
+    private String Instructions;
 //Constructors
 
     public RecipeInstruction() {
     }
 
-    public RecipeInstruction(String UUID, String instructions) {
-        this.UUID = UUID;
+    public RecipeInstruction(String instructionsId, String instructions) {
+        this.instructionsId = instructionsId;
         Instructions = instructions;
     }
 
@@ -20,12 +32,12 @@ public class RecipeInstruction {
     }
     //Getters and Setters
 
-    public String getUUID() {
-        return UUID;
+    public String getInstructionsId() {
+        return instructionsId;
     }
 
-    public void setUUID(String UUID) {
-        this.UUID = UUID;
+    public void setInstructionsId(String instruktionsId) {
+        this.instructionsId = instruktionsId;
     }
 
     public String getInstructions() {
@@ -43,11 +55,11 @@ public class RecipeInstruction {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RecipeInstruction that = (RecipeInstruction) o;
-        return Objects.equals(UUID, that.UUID) && Objects.equals(Instructions, that.Instructions);
+        return Objects.equals(instructionsId, that.instructionsId) && Objects.equals(Instructions, that.Instructions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(UUID, Instructions);
+        return Objects.hash(instructionsId, Instructions);
     }
 }

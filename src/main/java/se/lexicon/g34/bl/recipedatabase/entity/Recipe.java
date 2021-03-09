@@ -1,55 +1,63 @@
 package se.lexicon.g34.bl.recipedatabase.entity;
 
+import javax.persistence.*;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
-public class Recipe {
-    int ID;
-    String recipe;
-    List<Ingredient> ingredients;
-    RecipeInstruction instructions;
-    List<RecipeCategory> categories;
+@Entity (name="recepies")
+class Recipe {
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @Column(name = "ID",unique = true,updatable = false,nullable = false )
+    private int recipeId;
+    @Column (name = "Recipe",nullable = false )
+    private String recipeName;
+    @OneToMany (cascade = CascadeType.ALL,orphanRemoval = true, mappedBy="recipe")
+    private List<RecipeIngredient> recipeIngredients;
+    @OneToOne(cascade=CascadeType.ALL )
+     @JoinColumn(name="instructionsId")
+    private RecipeInstruction instructions;
+    @ManyToMany
+    private List<RecipeCategory> categories;
 
 //Constructors
 
     public Recipe() {
     }
 
-    public Recipe(int ID, String recipe, List<Ingredient> ingredients, RecipeInstruction instruction) {
-        this.ID = ID;
-        this.recipe = recipe;
-        this.ingredients = ingredients;
+    public Recipe(int recipeId, String recipeName,  RecipeInstruction instruction) {
+        this.recipeId = recipeId;
+        this.recipeName = recipeName;
         this.instructions = instruction;
     }
 
-    public Recipe(String recipe) {
-        this.recipe = recipe;
+    public Recipe(String recipeName) {
+        this.recipeName = recipeName;
     }
     //Getters and Setters
 
-    public int getID() {
-        return ID;
+    public int getRecipeId() {
+        return recipeId;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setRecipeId(int recipeId) {
+        this.recipeId = recipeId;
     }
 
-    public String getRecipe() {
-        return this.recipe;
+    public String getRecipeName() {
+        return this.recipeName;
     }
 
-    public void setRecipe(String recipe) {
-        this.recipe = recipe;
+    public void setRecipeName(String recipeName) {
+        this.recipeName = recipeName;
     }
 
-    public List<Ingredient> getIngredients() {
-        return ingredients;
+    public List<RecipeIngredient> getRecipeIngredients() {
+        return recipeIngredients;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
+    public void setRecipeIngredients(List<RecipeIngredient> recipeIngredients) {
+        this.recipeIngredients = recipeIngredients;
     }
 
     public RecipeInstruction getInstruction() {
@@ -67,11 +75,11 @@ public class Recipe {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Recipe recipe = (Recipe) o;
-        return ID == recipe.ID && Objects.equals(this.recipe, recipe.recipe) && Objects.equals(ingredients, recipe.ingredients) && Objects.equals(instructions, recipe.instructions);
+        return recipeId == recipe.recipeId && Objects.equals(this.recipeName, recipe.recipeName) && Objects.equals(recipeIngredients, recipe.recipeIngredients) && Objects.equals(instructions, recipe.instructions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID, recipe, ingredients, ingredients);
+        return Objects.hash(recipeId, recipeName, recipeIngredients, recipeIngredients);
     }
 }

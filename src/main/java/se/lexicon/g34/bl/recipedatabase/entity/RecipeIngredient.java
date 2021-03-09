@@ -1,19 +1,33 @@
 package se.lexicon.g34.bl.recipedatabase.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+
+@Entity (name="RecipeIngredients")
 public class RecipeIngredient {
-    String UUID;
-    Ingredient ingredient;
-    double amount;
-    Measurement measurement;
-    Recipe recipe;
+    @Id
+    @GeneratedValue(generator="UUID")
+    @GenericGenerator(name ="UUID",strategy ="org.hibernate.id.UUIDGenerator")
+    private String recipeIngredientId;
+    @ManyToOne
+    @JoinColumn(name="ingredientId",nullable = false)
+    private Ingredient ingredient;
+    @Column(name="Amount",nullable = false)
+    private double amount;
+    @Column(name="Unit",nullable = false)
+    private Measurement measurement;
+    @ManyToOne
+    @JoinColumn(name="recipe_id",nullable = false)
+    private Recipe recipe;
 
 //Constructors
 
     public RecipeIngredient() {
     }
 
-    public RecipeIngredient(String UUID, Ingredient ingredient, double amount, Measurement measurement, Recipe recipe) {
-        this.UUID = UUID;
+    public RecipeIngredient(String recipeIngredientId, Ingredient ingredient, double amount, Measurement measurement, Recipe recipe) {
+        this.recipeIngredientId = recipeIngredientId;
         this.ingredient = ingredient;
         this.amount = amount;
         this.measurement = measurement;
@@ -34,12 +48,12 @@ public class RecipeIngredient {
     }
     //Getters and Setters
 
-    public String getUUID() {
-        return UUID;
+    public String getRecipeIngredientId() {
+        return recipeIngredientId;
     }
 
-    public void setUUID(String UUID) {
-        this.UUID = UUID;
+    public void setRecipeIngredientId(String recipeIngredientId) {
+        this.recipeIngredientId = recipeIngredientId;
     }
 
     public Ingredient getIngredient() {
@@ -58,12 +72,12 @@ public class RecipeIngredient {
         this.amount = amount;
     }
 
-    public Measurement getMeasurement() {
+    public Measurement getUnit() {
         return measurement;
     }
 
-    public void setMeasurement(Measurement measurement) {
-        this.measurement = measurement;
+    public void setUnit(Measurement unit) {
+        this.measurement = unit;
     }
 
     public Recipe getRecipe() {
