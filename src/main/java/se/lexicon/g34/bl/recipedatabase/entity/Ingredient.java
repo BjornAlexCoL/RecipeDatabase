@@ -8,9 +8,9 @@ public class Ingredient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="ID", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private int ingredientId;
-    @Column(name = "Ingredient", unique = true, nullable = false)
+    @Column( unique = true, nullable = false)
     private String ingredientName;
 
     //Constructors

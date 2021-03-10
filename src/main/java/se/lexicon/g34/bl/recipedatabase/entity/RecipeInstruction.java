@@ -12,10 +12,10 @@ import java.util.Objects;
 public class RecipeInstruction {
    @Id
    @GeneratedValue(generator ="UUID")
-   @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
-   @Column(name ="UUID", updatable = false, nullable = false)
+   @GenericGenerator(name="UUID",strategy = "org.hibernate.id.UUIDGenerator")
+   @Column(updatable = false, nullable = false)
     private String instructionsId;
-//    @Column(name = "Instruction", nullable = false)
+    @Column( nullable = false, columnDefinition="Text")
     private String Instructions;
 //Constructors
 

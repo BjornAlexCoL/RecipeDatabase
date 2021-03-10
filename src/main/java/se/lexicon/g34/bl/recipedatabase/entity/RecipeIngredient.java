@@ -8,17 +8,18 @@ import javax.persistence.*;
 public class RecipeIngredient {
     @Id
     @GeneratedValue(generator="UUID")
-    @GenericGenerator(name ="UUID",strategy ="org.hibernate.id.UUIDGenerator")
+    @GenericGenerator(name="UUID",strategy ="org.hibernate.id.UUIDGenerator")
+    @Column(updatable = false, nullable = false)
     private String recipeIngredientId;
     @ManyToOne
-    @JoinColumn(name="ingredientId",nullable = false)
+    @JoinColumn(nullable = false)
     private Ingredient ingredient;
-    @Column(name="Amount",nullable = false)
+    @Column(nullable = false)
     private double amount;
-    @Column(name="Unit",nullable = false)
-    private Measurement measurement;
+    @Column(nullable = false)
+    private Unit unit;
     @ManyToOne
-    @JoinColumn(name="recipe_id",nullable = false)
+    @JoinColumn(nullable = false)
     private Recipe recipe;
 
 //Constructors
@@ -26,25 +27,25 @@ public class RecipeIngredient {
     public RecipeIngredient() {
     }
 
-    public RecipeIngredient(String recipeIngredientId, Ingredient ingredient, double amount, Measurement measurement, Recipe recipe) {
+    public RecipeIngredient(String recipeIngredientId, Ingredient ingredient, double amount, Unit unit, Recipe recipe) {
         this.recipeIngredientId = recipeIngredientId;
         this.ingredient = ingredient;
         this.amount = amount;
-        this.measurement = measurement;
+        this.unit = unit;
         this.recipe = recipe;
     }
 
-    public RecipeIngredient(Ingredient ingredient, double amount, Measurement measurement, Recipe recipe) {
+    public RecipeIngredient(Ingredient ingredient, double amount, Unit unit, Recipe recipe) {
         this.ingredient = ingredient;
         this.amount = amount;
-        this.measurement = measurement;
+        this.unit = unit;
         this.recipe = recipe;
     }
 
-    public RecipeIngredient(Ingredient ingredient, double amount, Measurement measurement) {
+    public RecipeIngredient(Ingredient ingredient, double amount, Unit unit) {
         this.ingredient = ingredient;
         this.amount = amount;
-        this.measurement = measurement;
+        this.unit = unit;
     }
     //Getters and Setters
 
@@ -72,12 +73,12 @@ public class RecipeIngredient {
         this.amount = amount;
     }
 
-    public Measurement getUnit() {
-        return measurement;
+    public Unit getUnit() {
+        return unit;
     }
 
-    public void setUnit(Measurement unit) {
-        this.measurement = unit;
+    public void setUnit(Unit unit) {
+        this.unit = unit;
     }
 
     public Recipe getRecipe() {

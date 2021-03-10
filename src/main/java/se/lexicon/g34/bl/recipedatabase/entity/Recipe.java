@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
-@Entity (name="recepies")
+@Entity (name="recipes")
 public class Recipe {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,7 +15,6 @@ public class Recipe {
     @OneToMany (cascade = CascadeType.ALL,orphanRemoval = true, mappedBy="recipe")
     private List<RecipeIngredient> recipeIngredients;
     @OneToOne(cascade=CascadeType.ALL )
-    //@JoinColumn(name="instructionsId")
     private RecipeInstruction instructions;
     @ManyToMany
     private List<RecipeCategory> categories;
