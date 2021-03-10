@@ -5,17 +5,17 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity (name="recepies")
-class Recipe {
+public class Recipe {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   @Column(name = "ID",unique = true,updatable = false,nullable = false )
+   @Column(unique = true,updatable = false,nullable = false )
     private int recipeId;
-    @Column (name = "Recipe",nullable = false )
+    @Column (nullable = false )
     private String recipeName;
     @OneToMany (cascade = CascadeType.ALL,orphanRemoval = true, mappedBy="recipe")
     private List<RecipeIngredient> recipeIngredients;
     @OneToOne(cascade=CascadeType.ALL )
-     @JoinColumn(name="instructionsId")
+    //@JoinColumn(name="instructionsId")
     private RecipeInstruction instructions;
     @ManyToMany
     private List<RecipeCategory> categories;
